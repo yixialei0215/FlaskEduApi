@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>login</title>
+</head>
+<body>
+<h1>用户登录页面</h1>
+<form action="/user/login" method="post">
+    <input name="phone" placeholder="手机号"><br>
+    <input type="password" name="passwd" placeholder="口令"><br>
+    <button>登录</button> <a href="#">没有账号？先去注册</a>
+</form>
+
+<script>
+    // 设置表单提交的函数
+    document.forms[0].onsubmit = function (ev) {
+        console.log(this);
+        alert(this)
+    }
+</script>
+</body>
+</html>
