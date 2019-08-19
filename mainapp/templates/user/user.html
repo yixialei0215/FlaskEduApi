@@ -4,9 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>$Title$</title>
+    <title>登录页面</title>
 </head>
 <body>
-$END$
+<h3>用户登录页面</h3>
+<h3>{{ base_url }}</h3>
+<ul>
+    {% for key,value in cookies.items() %}
+        <li>{{ key }}:{{ value }}</li>
+    {% endfor %}
+
+</ul>
+
 </body>
 </html>
