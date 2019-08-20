@@ -5,9 +5,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>主页</title>
+    <style>
+        .circle-img {
+            border-radius: 50%;
+            box-shadow: 5px 5px 5px lightgray;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
 </head>
 <body>
 <h1>主页</h1>
+<p>
+    <img class="circle-img"
+         title="点击图片更改"
+         onclick="selectImg()"
+         src="/static/{% if user.photo %}{{ user.photo }}{% else %} /static/images/2.png{% endif %}">
+</p>
+<input type="file"
+       id="selectFile"
+       style="display: none"
+       onchange="upload(this.files[0])">
 <h3><a href="{{ url_for('userBlue.modify') }}">修改个人信息</a></h3>
+
+<script>
+    function $(domID) {
+        return document.getElementById(domID)
+    }
+
+    function selectImg() {
+        if (confirm('是否确定更改头像')) {
+            $('selectFile').click()
+        }
+    }
+    function upload(file) {
+        alert(file.name);
+        console.log(file)
+    }
+</script>
 </body>
 </html>

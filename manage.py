@@ -3,7 +3,7 @@ from flask_script import Manager
 
 from mainapp import app
 from mainapp.views import user_v
-from models.user import db
+from models.user import db, User
 from utils import cache
 
 
@@ -23,7 +23,12 @@ def check_login():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # 获取用户登录信息
+    token = request.cookies.get('token')
+    user_id = cache.get_user_id(token)
+    user = User.query.get(int(user_id))
+
+    return render_template('index.html', user=user)
 
 
 @app.route('/create_db')

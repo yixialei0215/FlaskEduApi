@@ -10,7 +10,7 @@
 <h3>修改{{ user.phone }}用户的头像</h3>
 {{ user.photo }}
 <p>
-    <img src="/static/{% if user.photo %}{{ user.photo }}{% else %}/static/user/{% endif %}/">
+    <img src="/static/{% if user.photo %}{{ user.photo }}{% else %}/static/images/2.png{% endif %}/">
 </p>
 {# 如果form表单请求的路径是当前url路径，可以省略 action #}
 <form method="post" enctype="multipart/form-data">

@@ -1,7 +1,7 @@
 import os
 import uuid
 
-from flask import Blueprint, request, render_template, redirect
+from flask import Blueprint, request, render_template, redirect, jsonify
 from werkzeug.datastructures import FileStorage
 
 import settings
@@ -43,6 +43,12 @@ def modify():
 
     return render_template('user/info.html', user=user, msg=msg)
 
+@blue.route('/upload')
+def upload_photo():
+    return jsonify({
+        'msg': '上传成功',
+        'path': 'user/2.png'
+    })
 
 @blue.route('/logout', methods=['GET'])
 def logout():
