@@ -18,7 +18,7 @@ def modify():
     # print('request-method',request.method)
     token = request.cookies.get('token')
     user_id = cache.get_user_id(token)
-    # 任务1：优化登录用户的相关信息存在redis中（缓存）
+    # 任务2:：优化登录用户的相关信息存在redis中（缓存）
     user = User.query.get(int(user_id))
     if request.method == 'POST':
         # 头像上传
@@ -38,17 +38,34 @@ def modify():
 
             # 更新用户信息
             # 保存在数据库的图片路径是相对static资源访问的路径
-            user.photo = 'user/'+ filename
+            user.photo = 'user/' + filename
             db.session.commit()
 
     return render_template('user/info.html', user=user, msg=msg)
 
-@blue.route('/upload')
+
+@blue.route('/upload',methods=['POST'])
 def upload_photo():
+    upload_file: FileStorage = request.files.get('photo')
+    filename = uuid.uuid4().hex + os.path.splitext(upload_file.filename)[-1]
+    filepath = os.path.join(settings.USER_DIR, filename)
+
+    upload_file.save(filepath)
+
+    # 获取文件
+    user = User.query.get(cache.get_user_id(request.cookies.get('token')))
+    # 任务1：删除之前的用户头像
+    if user.photo:
+        yuan = os.path.join(settings.STATIC_DIR, user.photo)
+        os.remove(yuan)
+        print('------------删除成功-------------')
+    user.photo = 'user/' + filename
+    db.session.commit()
     return jsonify({
         'msg': '上传成功',
-        'path': 'user/2.png'
+        'path': 'user/' + filename
     })
+
 
 @blue.route('/logout', methods=['GET'])
 def logout():
