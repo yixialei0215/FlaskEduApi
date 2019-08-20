@@ -7,9 +7,9 @@ from models import db
 user_role = db.Table('user_role',
                      Column('user_id', Integer, ForeignKey('user.id', name='user_role_fk')),
                      Column('role_id', Integer, ForeignKey('role.id', name='user_role_pk')))
-role_table = db.Table('role_QX',
-                      Column('role_id',Integer,ForeignKey('role.id',name='role_QX_fk')),
-                      Column('QX_id',Integer,ForeignKey('QX.id',name='role_QX_pk')))
+# role_table = db.Table('role_QX',
+#                       Column('role_id',Integer,ForeignKey('role.id',name='role_table_fk')),
+#                       Column('QX_id',Integer,ForeignKey('QX.id',name='role_table_pk')))
 
 class BaseModel(db.Model):
     __abstract__ = True  # 作用：不会创建模型的对应的表
@@ -17,13 +17,15 @@ class BaseModel(db.Model):
     name = Column(String(20), unique=True, nullable=False)
 
 
-class Role(BaseModel):
-    __tablename__ = 'role'
+
 
 
 class QX(BaseModel):
     __tablename__ = 'qx'
 
+class Role(BaseModel):
+    __tablename__ = 'role'
+    # QXS = db.relationship(QX,secondary=role_table)
 
 class User(db.Model):
     id = Column(Integer,

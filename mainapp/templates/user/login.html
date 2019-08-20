@@ -8,13 +8,15 @@
 </head>
 <body>
 <h1>用户登录页面</h1>
-<form action="/user/login" method="post">
+<form name="login_form" action="/user/login" method="post">
     <input name="phone" placeholder="手机号"><br>
     <input type="password" name="passwd" placeholder="口令"><br>
     <button>登录</button>
     <a href="#">没有账号？先去注册</a>
-    <div id="val_info"></div>
 </form>
+<div id="val_info" style="color: red">
+    {{ msg }}
+</div>
 <script>
     function $(id) {
         return document.getElementById(id)
@@ -22,11 +24,11 @@
 
     // 设置表单提交的函数
     document.forms[0].onsubmit = function (ev) {
-        if (!/\d{11}/.this(this.phone.value)) {
+        if (!/\d{11}/.test(this.phone.value)) {
             $('val_info').innerHTML = '手机号必须是11位';
             return false
         }
-        if (!/\w{6,}/.this(this.passwd.value)) {
+        if (!/\w{6,}/.test(this.passwd.value)) {
             $('val_info').innerHTML = '口令是包含数字和字母至少是11位'
             return false
         }
